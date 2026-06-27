@@ -4,18 +4,18 @@
    ============================================================ */
 
 :root {
-  --bg:        #0a0b0f;
-  --bg-soft:   #11131a;
-  --bg-card:   #14161f;
-  --ink:       #f3f1ea;
-  --ink-dim:   #a4a3a0;
-  --ink-faint: #6c6b69;
-  --line:      rgba(243, 241, 234, 0.10);
-  --line-soft: rgba(243, 241, 234, 0.06);
-  --accent:      #c9a14a;
-  --accent-soft: #e0c884;
-  --accent-2:    #6f8fd6;
-  --accent-glow: rgba(201, 161, 74, 0.35);
+  --bg:        #f5f2eb;
+  --bg-soft:   #ede9df;
+  --bg-card:   #edeae1;
+  --ink:       #1a1812;
+  --ink-dim:   #5a5649;
+  --ink-faint: #9a9589;
+  --line:      rgba(26, 24, 18, 0.12);
+  --line-soft: rgba(26, 24, 18, 0.07);
+  --accent:      #b07d2a;
+  --accent-soft: #c9941f;
+  --accent-2:    #3d67b8;
+  --accent-glow: rgba(176, 125, 42, 0.30);
   --serif: "Cormorant Garamond", Georgia, serif;
   --sans:  "Inter", system-ui, -apple-system, sans-serif;
   --maxw: 1240px;
@@ -52,7 +52,7 @@ a { color: inherit; text-decoration: none; }
   border-bottom: 1px solid transparent;
 }
 .nav.is-scrolled {
-  background: rgba(10, 11, 15, 0.78);
+  background: rgba(245, 242, 235, 0.88);
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   padding-top: 14px; padding-bottom: 14px;
   border-bottom: 1px solid var(--line-soft);
@@ -82,10 +82,10 @@ a { color: inherit; text-decoration: none; }
   transition: transform 0.4s var(--ease), background 0.4s var(--ease),
               color 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
 }
-.btn--primary { background: var(--accent); color: #14110a; box-shadow: 0 8px 30px -10px var(--accent-glow); }
+.btn--primary { background: var(--accent); color: #fff8ee; box-shadow: 0 8px 30px -10px var(--accent-glow); }
 .btn--primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px -10px var(--accent-glow); background: var(--accent-soft); }
 .btn--ghost { border-color: var(--line); color: var(--ink); }
-.btn--ghost:hover { border-color: var(--accent); color: var(--accent-soft); transform: translateY(-3px); }
+.btn--ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
 .btn--small { padding: 0.65rem 1.3rem; font-size: 0.82rem; }
 
 /* ---------- Reveal ---------- */
@@ -346,7 +346,7 @@ a { color: inherit; text-decoration: none; }
   .nav__links {
     position: fixed; inset: 0; flex-direction: column; align-items: center;
     justify-content: center; height: 100svh;
-    background: rgba(10, 11, 15, 0.97); backdrop-filter: blur(16px);
+    background: rgba(245, 242, 235, 0.97); backdrop-filter: blur(16px);
     font-size: 1.6rem; gap: 2rem;
     transform: translateY(-100%); transition: transform 0.5s var(--ease);
   }

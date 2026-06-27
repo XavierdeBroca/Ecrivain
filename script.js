@@ -136,116 +136,198 @@
     });
   }
 
-  /* ---------- Animated neural / constellation background ---------- */
+  /* ---------- Graph background animation ---------- */
   const canvas = document.getElementById("neural-bg");
   if (canvas && !prefersReduced) {
     const ctx = canvas.getContext("2d");
     let w, h, dpr;
-    let nodes = [];
     const mouse = { x: -9999, y: -9999 };
 
-    const config = {
-      density: 0.00009,   // nodes per pixel
-      maxNodes: 110,
-      linkDist: 150,
-      speed: 0.22,
-      colorA: "201, 161, 74",  // accent gold
-      colorB: "111, 143, 214", // ia blue
+    // Colors adapted for light theme
+    const C_GOLD  = [176, 125, 42];
+    const C_BLUE  = [61, 103, 184];
+    const C_LIGHT = [220, 215, 200]; // faint edge color
+
+    // Graph state
+    let nodes = [];
+    let edges = [];
+    let signals = []; // traveling dots along edges
+
+    const NODE_COUNT_BASE = 38;
+    const LINK_DIST = 200;
+    const SPEED = 0.18;
+
+    const buildGraph = () => {
+      nodes = Array.from({ length: NODE_COUNT_BASE }, (_, i) => ({
+        id: i,
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * SPEED,
+        vy: (Math.random() - 0.5) * SPEED,
+        r: Math.random() * 2.5 + 2.5,          // visible node radius
+        pulse: Math.random() * Math.PI * 2,    // phase for breathing
+        pulseSpeed: 0.018 + Math.random() * 0.014,
+        blue: Math.random() > 0.55,
+        hub: Math.random() > 0.82,             // hub nodes are larger
+      }));
+      edges = [];
+      signals = [];
     };
 
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = canvas.clientWidth = window.innerWidth;
+      w = canvas.clientWidth  = window.innerWidth;
       h = canvas.clientHeight = window.innerHeight;
-      canvas.width = w * dpr;
+      canvas.width  = w * dpr;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      const count = Math.min(Math.floor(w * h * config.density), config.maxNodes);
-      nodes = Array.from({ length: count }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * config.speed,
-        vy: (Math.random() - 0.5) * config.speed,
-        r: Math.random() * 1.6 + 0.6,
-        blue: Math.random() > 0.6,
-      }));
+      buildGraph();
     };
+
+    // Spawn a signal dot on an edge
+    const spawnSignal = (a, b) => {
+      signals.push({
+        from: a, to: b,
+        t: 0,
+        speed: 0.004 + Math.random() * 0.006,
+        blue: nodes[a].blue || nodes[b].blue,
+        size: 2.5 + Math.random() * 1.5,
+      });
+    };
+
+    let signalTimer = 0;
+    let raf;
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
 
+      // ── Move nodes ──
+      for (const n of nodes) {
+        n.x += n.vx; n.y += n.vy;
+        if (n.x < -30)    { n.x = w + 30; }
+        else if (n.x > w + 30) { n.x = -30; }
+        if (n.y < -30)    { n.y = h + 30; }
+        else if (n.y > h + 30) { n.y = -30; }
+
+        // gentle mouse repulsion
+        const dx = n.x - mouse.x, dy = n.y - mouse.y;
+        const d = Math.hypot(dx, dy);
+        if (d < 140 && d > 1) {
+          const f = (140 - d) / 140 * 0.4;
+          n.vx += (dx / d) * f; n.vy += (dy / d) * f;
+        }
+        // dampen velocity
+        n.vx *= 0.99; n.vy *= 0.99;
+        const maxV = 0.6;
+        const spd = Math.hypot(n.vx, n.vy);
+        if (spd > maxV) { n.vx = n.vx / spd * maxV; n.vy = n.vy / spd * maxV; }
+
+        n.pulse += n.pulseSpeed;
+      }
+
+      // ── Build dynamic edge list ──
+      edges = [];
       for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        n.x += n.vx;
-        n.y += n.vy;
-
-        // wrap edges
-        if (n.x < -20) n.x = w + 20;
-        if (n.x > w + 20) n.x = -20;
-        if (n.y < -20) n.y = h + 20;
-        if (n.y > h + 20) n.y = -20;
-
-        // mouse gentle attraction
-        const mdx = mouse.x - n.x;
-        const mdy = mouse.y - n.y;
-        const md = Math.hypot(mdx, mdy);
-        if (md < 180) {
-          n.x += (mdx / md) * 0.25;
-          n.y += (mdy / md) * 0.25;
-        }
-
-        const col = n.blue ? config.colorB : config.colorA;
-
-        // node
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${col}, 0.7)`;
-        ctx.fill();
-
-        // links
         for (let j = i + 1; j < nodes.length; j++) {
-          const m = nodes[j];
-          const dx = n.x - m.x;
-          const dy = n.y - m.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < config.linkDist) {
-            const alpha = (1 - dist / config.linkDist) * 0.4;
-            ctx.beginPath();
-            ctx.moveTo(n.x, n.y);
-            ctx.lineTo(m.x, m.y);
-            ctx.strokeStyle = `rgba(${col}, ${alpha})`;
-            ctx.lineWidth = 0.6;
-            ctx.stroke();
-          }
+          const dist = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+          if (dist < LINK_DIST) edges.push({ a: i, b: j, dist });
         }
+      }
 
-        // link to mouse
-        if (md < config.linkDist) {
-          const alpha = (1 - md / config.linkDist) * 0.5;
+      // ── Spawn signals occasionally ──
+      signalTimer++;
+      if (signalTimer > 22 && edges.length > 0 && signals.length < 18) {
+        signalTimer = 0;
+        const e = edges[Math.floor(Math.random() * edges.length)];
+        spawnSignal(e.a, e.b);
+      }
+
+      // ── Draw edges ──
+      for (const e of edges) {
+        const na = nodes[e.a], nb = nodes[e.b];
+        const alpha = (1 - e.dist / LINK_DIST) * 0.22;
+        ctx.beginPath();
+        ctx.moveTo(na.x, na.y);
+        ctx.lineTo(nb.x, nb.y);
+        ctx.strokeStyle = `rgba(${C_LIGHT.join(",")}, ${alpha})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+
+      // ── Draw mouse-proximity edges ──
+      for (const n of nodes) {
+        const d = Math.hypot(n.x - mouse.x, n.y - mouse.y);
+        if (d < LINK_DIST * 0.85) {
+          const alpha = (1 - d / (LINK_DIST * 0.85)) * 0.35;
+          const col = n.blue ? C_BLUE : C_GOLD;
           ctx.beginPath();
           ctx.moveTo(n.x, n.y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(${config.colorA}, ${alpha})`;
-          ctx.lineWidth = 0.7;
+          ctx.strokeStyle = `rgba(${col.join(",")}, ${alpha})`;
+          ctx.lineWidth = 1;
           ctx.stroke();
         }
       }
+
+      // ── Draw signals (traveling dots) ──
+      signals = signals.filter(s => s.t <= 1);
+      for (const s of signals) {
+        s.t += s.speed;
+        const na = nodes[s.from], nb = nodes[s.to];
+        if (!na || !nb) continue;
+        const px = na.x + (nb.x - na.x) * s.t;
+        const py = na.y + (nb.y - na.y) * s.t;
+        const alpha = Math.sin(s.t * Math.PI); // fade in/out
+        const col = s.blue ? C_BLUE : C_GOLD;
+        // glow
+        const grad = ctx.createRadialGradient(px, py, 0, px, py, s.size * 3);
+        grad.addColorStop(0, `rgba(${col.join(",")}, ${alpha * 0.6})`);
+        grad.addColorStop(1, `rgba(${col.join(",")}, 0)`);
+        ctx.beginPath();
+        ctx.arc(px, py, s.size * 3, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+        // core dot
+        ctx.beginPath();
+        ctx.arc(px, py, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${col.join(",")}, ${alpha * 0.9})`;
+        ctx.fill();
+      }
+
+      // ── Draw nodes ──
+      for (const n of nodes) {
+        const col = n.blue ? C_BLUE : C_GOLD;
+        const breathe = 1 + Math.sin(n.pulse) * 0.18;
+        const r = (n.hub ? n.r * 1.7 : n.r) * breathe;
+
+        // outer glow ring
+        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 3.5);
+        grad.addColorStop(0, `rgba(${col.join(",")}, 0.18)`);
+        grad.addColorStop(1, `rgba(${col.join(",")}, 0)`);
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r * 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // node circle
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${col.join(",")}, ${n.hub ? 0.55 : 0.38})`;
+        ctx.fill();
+
+        // inner bright core
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r * 0.45, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${col.join(",")}, 0.75)`;
+        ctx.fill();
+      }
+
       raf = requestAnimationFrame(draw);
     };
 
-    let raf;
     window.addEventListener("resize", resize, { passive: true });
-    window.addEventListener("mousemove", (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    }, { passive: true });
-    window.addEventListener("mouseout", () => {
-      mouse.x = -9999;
-      mouse.y = -9999;
-    });
-
-    // pause when tab hidden
+    window.addEventListener("mousemove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
+    window.addEventListener("mouseout",  () => { mouse.x = -9999; mouse.y = -9999; });
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) cancelAnimationFrame(raf);
       else raf = requestAnimationFrame(draw);
