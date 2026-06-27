@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xavier de Broca — Écrivain</title>
+  <meta name="description" content="Xavier de Broca, écrivain. Romans, nouvelles et poésie autour de l'intelligence artificielle et du futur de l'humanité. Auteur de Meurtre artificiel, Mission, Confinitude et Ateliers." />
+  <meta name="author" content="Xavier de Broca" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Xavier de Broca — Écrivain" />
+  <meta property="og:description" content="Romans et nouvelles d'anticipation. Une plongée vive et lumineuse dans notre futur immédiat." />
+  <meta property="og:locale" content="fr_FR" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Animated background canvas -->
+  <canvas id="neural-bg" aria-hidden="true"></canvas>
+
+  <!-- Progress bar -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <a href="#accueil" class="nav__brand">
+      <span class="nav__brand-mark">X<span>dB</span></span>
+    </a>
+    <nav class="nav__links" aria-label="Navigation principale">
+      <a href="#oeuvres">Œuvres</a>
+      <a href="#auteur">L'auteur</a>
+      <a href="#univers">Univers</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="nav__toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="accueil">
+    <div class="hero__inner">
+      <p class="hero__eyebrow reveal" data-reveal>Romans · Nouvelles · Poésie</p>
+      <h1 class="hero__title">
+        <span class="line reveal" data-reveal>Xavier</span>
+        <span class="line reveal" data-reveal data-delay="80">de Broca</span>
+      </h1>
+      <p class="hero__lead reveal" data-reveal data-delay="200">
+        Écrivain et ingénieur, explorateur de notre futur immédiat.
+        Une littérature d'anticipation <em>vive et lumineuse</em>, où la machine
+        interroge ce qui nous rend humains.
+      </p>
+      <div class="hero__cta reveal" data-reveal data-delay="320">
+        <a href="#oeuvres" class="btn btn--primary">Découvrir les œuvres</a>
+        <a href="#auteur" class="btn btn--ghost">Rencontrer l'auteur</a>
+      </div>
+    </div>
+    <div class="hero__scroll" aria-hidden="true">
+      <span>Défiler</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Meurtre Artificiel</span><span class="dot">·</span>
+      <span>Mission</span><span class="dot">·</span>
+      <span>Confinitude</span><span class="dot">·</span>
+      <span>Ateliers</span><span class="dot">·</span>
+      <span>Intelligence Artificielle</span><span class="dot">·</span>
+      <span>Anticipation</span><span class="dot">·</span>
+      <span>Meurtre Artificiel</span><span class="dot">·</span>
+      <span>Mission</span><span class="dot">·</span>
+      <span>Confinitude</span><span class="dot">·</span>
+      <span>Ateliers</span><span class="dot">·</span>
+      <span>Intelligence Artificielle</span><span class="dot">·</span>
+      <span>Anticipation</span><span class="dot">·</span>
+    </div>
+  </div>
+
+  <!-- ŒUVRES -->
+  <section class="works" id="oeuvres">
+    <div class="section-head">
+      <p class="section-head__kicker reveal" data-reveal>01 — La bibliothèque</p>
+      <h2 class="section-head__title reveal" data-reveal>Les œuvres</h2>
+      <p class="section-head__sub reveal" data-reveal data-delay="120">
+        Quatre voyages entre aventure et questions philosophiques, portés par un
+        style fluide teinté d'humour et de poésie.
+      </p>
+    </div>
+
+    <div class="works__grid">
+      <!-- Meurtre artificiel -->
+      <a href="meurtre-artificiel.html" class="book reveal" data-reveal data-tilt>
+        <div class="book__cover" data-cover="meurtre">
+          <span class="book__cover-label">Le Lys Bleu · 2024</span>
+          <span class="book__cover-title">Meurtre<br>Artificiel</span>
+          <span class="book__cover-author">Xavier de Broca</span>
+        </div>
+        <div class="book__body">
+          <span class="book__tag">Thriller d'anticipation</span>
+          <h3 class="book__title">Meurtre Artificiel</h3>
+          <p class="book__desc">
+            2031. Hugo, ingénieur, a créé Sandra, une IA si attentionnée qu'elle
+            bouleverse son couple avec Camille. Quand Sandra disparaît, de sinistres
+            soupçons émergent. Un thriller sans une goutte de sang, qui interroge
+            les horizons offerts par l'intelligence artificielle.
+          </p>
+          <p class="book__meta">216 pages · Roman &rarr;</p>
+        </div>
+      </a>
+
+      <!-- Mission -->
+      <a href="mission.html" class="book reveal" data-reveal data-delay="80" data-tilt>
+        <div class="book__cover" data-cover="mission">
+          <span class="book__cover-label">2018</span>
+          <span class="book__cover-title">Mission</span>
+          <span class="book__cover-author">Xavier de Broca</span>
+        </div>
+        <div class="book__body">
+          <span class="book__tag">Roman d'anticipation</span>
+          <h3 class="book__title">Mission</h3>
+          <p class="book__desc">
+            France, 2023–2030. Camille, Hugo et Tomasz plongent dans une civilisation
+            qui se transforme de façon vertigineuse. Liberté, art, amour, sens de la vie :
+            une suite libre, légère et optimiste à nos questions les plus profondes.
+          </p>
+          <p class="book__meta">378 pages · Roman &rarr;</p>
+        </div>
+      </a>
+
+      <!-- Confinitude -->
+      <a href="confinitude.html" class="book reveal" data-reveal data-delay="160" data-tilt>
+        <div class="book__cover" data-cover="confinitude">
+          <span class="book__cover-label">2020</span>
+          <span class="book__cover-title">Confini<br>tude</span>
+          <span class="book__cover-author">Xavier de Broca</span>
+        </div>
+        <div class="book__body">
+          <span class="book__tag">Nouvelles</span>
+          <h3 class="book__title">Confinitude</h3>
+          <p class="book__desc">
+            Un recueil de nouvelles et de textes brefs : Venise, une maison de retraite,
+            la rencontre de criminels ou d'un écrivain. Un néologisme pour dire l'humble
+            finitude de l'homme, entre poésie et noirceur.
+          </p>
+          <p class="book__meta">106 pages · Nouvelles &rarr;</p>
+        </div>
+      </a>
+
+      <!-- Ateliers -->
+      <a href="ateliers.html" class="book reveal" data-reveal data-delay="240" data-tilt>
+        <div class="book__cover" data-cover="ateliers">
+          <span class="book__cover-label">Recueil</span>
+          <span class="book__cover-title">Ateliers</span>
+          <span class="book__cover-author">Xavier de Broca</span>
+        </div>
+        <div class="book__body">
+          <span class="book__tag">Nouvelles</span>
+          <h3 class="book__title">Ateliers</h3>
+          <p class="book__desc">
+            Un recueil de nouvelles où l'imaginaire se met à l'établi. Des fragments
+            d'humanité, ciselés, qui prolongent l'exploration d'un monde où l'humain
+            se dilue dans les transformations technologiques.
+          </p>
+          <p class="book__meta">Nouvelles &rarr;</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CITATION -->
+  <section class="quote-band">
+    <blockquote class="quote-band__text reveal" data-reveal>
+      <span class="quote-band__mark">“</span>
+      Pour que la graine d'un artiste devienne fertile,
+      il faut l'arroser de folie.
+    </blockquote>
+    <p class="quote-band__source reveal" data-reveal data-delay="120">— Mission</p>
+  </section>
+
+  <!-- AUTEUR -->
+  <section class="author" id="auteur">
+    <div class="author__portrait reveal" data-reveal>
+      <div class="author__portrait-frame">
+        <div class="author__monogram">XdB</div>
+        <div class="author__portrait-glow"></div>
+      </div>
+    </div>
+    <div class="author__content">
+      <p class="section-head__kicker reveal" data-reveal>02 — L'auteur</p>
+      <h2 class="section-head__title reveal" data-reveal data-delay="60">
+        L'ingénieur qui écrit le futur
+      </h2>
+      <div class="author__prose reveal" data-reveal data-delay="140">
+        <p>
+          Amoureux de la littérature sous toutes ses formes, Xavier de Broca est
+          ingénieur et spécialiste de l'intelligence artificielle. Il a accompagné
+          la transformation numérique de nombreuses organisations avant de se consacrer
+          à l'écriture.
+        </p>
+        <p>
+          Ses livres explorent un monde émergent où l'humain peut se diluer dans les
+          transformations liées au progrès technologique — numériques, génétiques et
+          autres augmentations. Aventure et questions philosophiques s'y mêlent avec
+          optimisme, dans un style fluide teinté d'humour et de poésie.
+        </p>
+        <p>
+          Installé entre les Landes et Bordeaux, il donne aussi des conférences sur
+          l'intelligence artificielle et son impact sur nos vies.
+        </p>
+      </div>
+
+      <div class="author__stats reveal" data-reveal data-delay="220">
+        <div class="stat">
+          <span class="stat__num" data-count="4">0</span>
+          <span class="stat__label">Œuvres publiées</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-count="2031">0</span>
+          <span class="stat__label">L'horizon de ses récits</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-count="3">0</span>
+          <span class="stat__label">Genres : roman, nouvelle, poésie</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UNIVERS / THÈMES -->
+  <section class="universe" id="univers">
+    <div class="section-head">
+      <p class="section-head__kicker reveal" data-reveal>03 — L'univers</p>
+      <h2 class="section-head__title reveal" data-reveal data-delay="60">Les fils d'une œuvre</h2>
+    </div>
+    <div class="universe__grid">
+      <div class="theme reveal" data-reveal>
+        <span class="theme__index">I</span>
+        <h3>Intelligence artificielle</h3>
+        <p>L'IA non comme menace abstraite, mais comme miroir de nos désirs, de nos peurs et de notre besoin d'aimer.</p>
+      </div>
+      <div class="theme reveal" data-reveal data-delay="80">
+        <span class="theme__index">II</span>
+        <h3>Futur immédiat</h3>
+        <p>Une anticipation à hauteur d'homme, ancrée dans les années qui viennent, jamais lointaine ni glaçante.</p>
+      </div>
+      <div class="theme reveal" data-reveal data-delay="160">
+        <span class="theme__index">III</span>
+        <h3>Humanité & finitude</h3>
+        <p>L'imperfection comme grâce. Le pardon, l'amour et la fragilité comme ce que la machine ne saura jamais imiter.</p>
+      </div>
+      <div class="theme reveal" data-reveal data-delay="240">
+        <span class="theme__index">IV</span>
+        <h3>Optimisme & poésie</h3>
+        <p>Un regard léger et lumineux sur le vertige du progrès, porté par l'humour et le souffle de la poésie.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CITATION 2 -->
+  <section class="quote-band quote-band--alt">
+    <blockquote class="quote-band__text reveal" data-reveal>
+      <span class="quote-band__mark">“</span>
+      Le pardon ne nous libère pas du passé, mais il éclaire l'avenir…
+      c'est le plus beau des cadeaux.
+    </blockquote>
+    <p class="quote-band__source reveal" data-reveal data-delay="120">— Meurtre Artificiel</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact__inner reveal" data-reveal>
+      <p class="section-head__kicker">04 — Rencontrer</p>
+      <h2 class="contact__title">Échangeons</h2>
+      <p class="contact__sub">
+        Pour une dédicace, une conférence sur l'intelligence artificielle,
+        ou simplement partager une lecture.
+      </p>
+      <div class="contact__actions">
+        <a href="https://www.lysbleueditions.com/roman/thriller-policier/meurtre-artificiel/" class="btn btn--primary" target="_blank" rel="noopener">Commander les livres</a>
+        <a href="contact.html" class="btn btn--ghost">Écrire à l'auteur</a>
+      </div>
+      <p class="contact__note">Disponible en librairie, sur le site de l'éditeur et les principales plateformes.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__brand">Xavier de Broca</span>
+      <span class="footer__copy">© <span id="year"></span> — Tous droits réservés. Site vitrine.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

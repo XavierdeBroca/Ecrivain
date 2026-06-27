@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Xavier de Broca</title>
+  <meta name="description" content="Écrire à Xavier de Broca. Pour une dédicace, une conférence sur l'intelligence artificielle, ou partager une lecture." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="book.css" />
+  <style>
+    :root { --book-accent: #c9a14a; }
+
+    /* ---- Contact page layout ---- */
+    .contact-page {
+      min-height: 100svh;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 140px clamp(20px, 5vw, 60px) 80px;
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: clamp(3rem, 8vw, 8rem);
+      align-items: start;
+    }
+
+    /* Left: info */
+    .contact-info__kicker {
+      font-size: 0.78rem; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.2rem;
+    }
+    .contact-info__title {
+      font-family: var(--serif); font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 500; line-height: 1.02; letter-spacing: -0.01em;
+      margin-bottom: 1.4rem;
+    }
+    .contact-info__sub {
+      color: var(--ink-dim); font-size: 1.05rem; line-height: 1.75;
+      margin-bottom: 2.4rem;
+    }
+    .contact-reasons { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.8rem; }
+    .contact-reason {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.2rem 1.4rem;
+      background: var(--bg-card); border: 1px solid var(--line-soft); border-radius: 12px;
+      transition: border-color 0.3s, transform 0.3s var(--ease);
+    }
+    .contact-reason:hover { border-color: var(--line); transform: translateX(4px); }
+    .contact-reason__icon {
+      font-size: 1.4rem; line-height: 1; flex-shrink: 0;
+      width: 36px; text-align: center;
+    }
+    .contact-reason__body h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.2rem; }
+    .contact-reason__body p { font-size: 0.85rem; color: var(--ink-dim); line-height: 1.5; }
+
+    .contact-social { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .contact-social a {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.1rem; border: 1px solid var(--line-soft); border-radius: 100px;
+      font-size: 0.82rem; color: var(--ink-dim);
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .contact-social a:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Right: form */
+    .contact-form-wrap {
+      background: var(--bg-card); border: 1px solid var(--line-soft); border-radius: 20px;
+      padding: clamp(1.8rem, 4vw, 3rem); position: sticky; top: 100px;
+    }
+    .contact-form-wrap h2 {
+      font-family: var(--serif); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .contact-form-wrap p {
+      font-size: 0.9rem; color: var(--ink-dim); margin-bottom: 2rem; line-height: 1.5;
+    }
+
+    .form-group { margin-bottom: 1.4rem; }
+    .form-group label {
+      display: block; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-faint); margin-bottom: 0.5rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg); border: 1px solid var(--line);
+      color: var(--ink); font-family: var(--sans); font-size: 0.95rem; font-weight: 300;
+      padding: 0.85rem 1rem; border-radius: 10px;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236c6b69' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(201, 161, 74, 0.12);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--ink-faint); }
+    .form-group textarea { resize: vertical; min-height: 150px; line-height: 1.6; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .form-submit {
+      width: 100%; padding: 1rem; font-size: 0.95rem; letter-spacing: 0.04em;
+      background: var(--accent); color: #14110a; border: none; border-radius: 100px;
+      cursor: pointer; font-family: var(--sans); font-weight: 400;
+      box-shadow: 0 8px 30px -10px var(--accent-glow);
+      transition: transform 0.4s var(--ease), background 0.3s, box-shadow 0.4s var(--ease);
+      position: relative; overflow: hidden;
+    }
+    .form-submit:hover { transform: translateY(-3px); background: var(--accent-soft); box-shadow: 0 14px 40px -10px var(--accent-glow); }
+    .form-submit:active { transform: translateY(0); }
+    .form-submit.is-loading { pointer-events: none; opacity: 0.7; }
+    .form-submit.is-loading::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shimmer 1.2s infinite;
+    }
+    @keyframes shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+
+    .form-note {
+      margin-top: 1rem; font-size: 0.78rem; color: var(--ink-faint);
+      text-align: center; line-height: 1.5;
+    }
+    .form-note a { color: var(--accent); border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+    .form-note a:hover { border-color: var(--accent); }
+
+    /* Success / error states */
+    .form-feedback {
+      display: none; padding: 1.2rem 1.4rem; border-radius: 12px;
+      margin-bottom: 1.4rem; font-size: 0.92rem; line-height: 1.5;
+    }
+    .form-feedback.is-success {
+      display: block; background: rgba(158, 199, 154, 0.12);
+      border: 1px solid rgba(158, 199, 154, 0.3); color: #9ec79a;
+    }
+    .form-feedback.is-error {
+      display: block; background: rgba(214, 143, 143, 0.12);
+      border: 1px solid rgba(214, 143, 143, 0.3); color: #d68f8f;
+    }
+
+    /* Responsive */
+    @media (max-width: 880px) {
+      .contact-page { grid-template-columns: 1fr; }
+      .contact-form-wrap { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <header class="nav" id="nav">
+    <a href="index.html" class="nav__brand">
+      <span class="nav__brand-mark">X<span>dB</span></span>
+    </a>
+    <nav class="nav__links" aria-label="Navigation">
+      <a href="index.html#oeuvres">Œuvres</a>
+      <a href="index.html#auteur">L'auteur</a>
+      <a href="index.html#univers">Univers</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </nav>
+    <button class="nav__toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="contact-page">
+    <!-- LEFT: informations -->
+    <div class="contact-info">
+      <p class="contact-info__kicker reveal" data-reveal>Échangeons</p>
+      <h1 class="contact-info__title reveal" data-reveal data-delay="60">Écrire à<br>Xavier de Broca</h1>
+      <p class="contact-info__sub reveal" data-reveal data-delay="140">
+        Dédicace, conférence sur l'intelligence artificielle, avis de lecture,
+        partenariat éditorial — toute demande est la bienvenue.
+      </p>
+
+      <div class="contact-reasons reveal" data-reveal data-delay="200">
+        <div class="contact-reason">
+          <div class="contact-reason__icon">✍️</div>
+          <div class="contact-reason__body">
+            <h3>Dédicace & signature</h3>
+            <p>Pour obtenir un exemplaire dédicacé ou organiser une séance de signature.</p>
+          </div>
+        </div>
+        <div class="contact-reason">
+          <div class="contact-reason__icon">🎤</div>
+          <div class="contact-reason__body">
+            <h3>Conférence sur l'IA</h3>
+            <p>Xavier de Broca donne des conférences sur l'intelligence artificielle et son impact.</p>
+          </div>
+        </div>
+        <div class="contact-reason">
+          <div class="contact-reason__icon">📖</div>
+          <div class="contact-reason__body">
+            <h3>Avis de lecture</h3>
+            <p>Partager votre ressenti sur un roman, une question sur l'œuvre ou l'univers de l'auteur.</p>
+          </div>
+        </div>
+        <div class="contact-reason">
+          <div class="contact-reason__icon">🤝</div>
+          <div class="contact-reason__body">
+            <h3>Presse & partenariats</h3>
+            <p>Demande d'interview, article de presse, club de lecture, partenariat éditorial.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-social reveal" data-reveal data-delay="280">
+        <a href="https://www.babelio.com/auteur/Xavier-de-Broca/559354" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Babelio
+        </a>
+        <a href="https://www.amazon.fr/Xavier-de-Broca/e/B07FTCP997" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          Amazon
+        </a>
+        <a href="https://www.linkedin.com/in/xavier-de-broca-03b29313/" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT: form -->
+    <div class="contact-form-wrap reveal" data-reveal data-delay="100">
+      <h2>Votre message</h2>
+      <p>Réponse sous 48 h en général.</p>
+
+      <div class="form-feedback" id="formFeedback" role="alert" aria-live="polite"></div>
+
+      <!--
+        FORMSPREE : remplacez YOUR_FORM_ID par votre identifiant Formspree.
+        Créez un compte gratuit sur https://formspree.io et copiez votre form endpoint.
+        Ex: action="https://formspree.io/f/abcdefgh"
+      -->
+      <form
+        id="contactForm"
+        action="https://formspree.io/f/YOUR_FORM_ID"
+        method="POST"
+        novalidate
+      >
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prenom">Prénom *</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required autocomplete="given-name" />
+          </div>
+          <div class="form-group">
+            <label for="nom">Nom *</label>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom" required autocomplete="family-name" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Adresse e-mail *</label>
+          <input type="email" id="email" name="email" placeholder="vous@exemple.com" required autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label for="sujet">Objet du message *</label>
+          <select id="sujet" name="sujet" required>
+            <option value="" disabled selected>Choisir un sujet…</option>
+            <option value="dedicace">Dédicace & exemplaire signé</option>
+            <option value="conference">Conférence sur l'intelligence artificielle</option>
+            <option value="lecture">Avis de lecture</option>
+            <option value="presse">Presse & interview</option>
+            <option value="club">Club de lecture</option>
+            <option value="partenariat">Partenariat éditorial</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" placeholder="Votre message…" required minlength="20"></textarea>
+        </div>
+
+        <!-- honeypot anti-spam -->
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+        <!-- redirect après envoi désactivé (on gère en JS) -->
+        <input type="hidden" name="_next" value="false" />
+
+        <button type="submit" class="form-submit" id="formSubmit">
+          Envoyer le message
+        </button>
+        <p class="form-note">
+          Formulaire sécurisé via <a href="https://formspree.io" target="_blank" rel="noopener">Formspree</a>.
+          Vos données ne sont pas revendues.
+        </p>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <a href="index.html" class="footer__brand">Xavier de Broca</a>
+      <span class="footer__copy">© <span id="year"></span> — Tous droits réservés.</span>
+    </div>
+  </footer>
+
+  <script src="book.js"></script>
+  <script>
+    (() => {
+      const form = document.getElementById("contactForm");
+      const btn  = document.getElementById("formSubmit");
+      const fb   = document.getElementById("formFeedback");
+
+      const showFeedback = (type, msg) => {
+        fb.className = `form-feedback is-${type}`;
+        fb.textContent = msg;
+        fb.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      };
+
+      /* client-side validation */
+      const validate = () => {
+        const required = form.querySelectorAll("[required]");
+        for (const el of required) {
+          if (!el.value.trim()) {
+            el.focus();
+            showFeedback("error", "Merci de remplir tous les champs obligatoires (*).");
+            return false;
+          }
+        }
+        const email = form.querySelector("#email");
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+          email.focus();
+          showFeedback("error", "Merci de saisir une adresse e-mail valide.");
+          return false;
+        }
+        return true;
+      };
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        fb.className = "form-feedback"; // reset
+
+        if (!validate()) return;
+
+        btn.classList.add("is-loading");
+        btn.textContent = "Envoi en cours…";
+
+        try {
+          const data = new FormData(form);
+          const res = await fetch(form.action, {
+            method: "POST",
+            body: data,
+            headers: { Accept: "application/json" },
+          });
+
+          if (res.ok) {
+            showFeedback("success", "✓ Votre message a bien été envoyé. Xavier de Broca vous répondra dans les 48 h.");
+            form.reset();
+          } else {
+            const json = await res.json().catch(() => ({}));
+            const errMsg = json?.errors?.map(e => e.message).join(", ") || "Erreur inconnue.";
+            showFeedback("error", `Une erreur est survenue : ${errMsg}. Merci de réessayer.`);
+          }
+        } catch {
+          showFeedback("error", "Impossible d'envoyer le message. Vérifiez votre connexion et réessayez.");
+        } finally {
+          btn.classList.remove("is-loading");
+          btn.textContent = "Envoyer le message";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

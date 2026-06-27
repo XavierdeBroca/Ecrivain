@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meurtre Artificiel — Xavier de Broca</title>
+  <meta name="description" content="Meurtre Artificiel de Xavier de Broca. 2031 : Hugo crée une IA, Sandra, si attentionnée qu'elle bouleverse tout. Un thriller d'anticipation sans une goutte de sang." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="book.css" />
+  <style>
+    :root { --book-accent: #6f8fd6; --book-bg-a: #1c2536; --book-bg-b: #0c1018; --book-spine: #1a2232; }
+    .book-3d__front { background: linear-gradient(160deg, var(--book-bg-a), var(--book-bg-b)); }
+    .book-3d__spine { background: var(--book-spine); }
+    .book-3d__title { color: var(--book-accent); }
+    .other-book-card__cover[data-cover="mission"]     { background: linear-gradient(160deg, #2a2113, #120d05); color: #e0c884; }
+    .other-book-card__cover[data-cover="confinitude"] { background: linear-gradient(160deg, #243024, #0c130c); color: #9ec79a; }
+    .other-book-card__cover[data-cover="ateliers"]    { background: linear-gradient(160deg, #311d24, #14080d); color: #d68faa; }
+    /* Circuit decoration on hero */
+    .book-hero { position: relative; overflow: hidden; }
+    .book-hero::before {
+      content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 55%;
+      background: radial-gradient(900px 700px at 80% 40%, rgba(111,143,214,0.08), transparent 70%);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <header class="nav" id="nav">
+    <a href="index.html" class="nav__brand">
+      <span class="nav__brand-mark">X<span>dB</span></span>
+    </a>
+    <nav class="nav__links" aria-label="Navigation">
+      <a href="index.html#oeuvres">Œuvres</a>
+      <a href="index.html#auteur">L'auteur</a>
+      <a href="index.html#univers">Univers</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="nav__toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- HERO -->
+  <section class="book-hero">
+    <div class="book-hero__cover reveal" data-reveal>
+      <div class="book-3d">
+        <div class="book-3d__spine"><span>Meurtre Artificiel · Xavier de Broca · Le Lys Bleu</span></div>
+        <div class="book-3d__front">
+          <span class="book-3d__label">Le Lys Bleu · 2024</span>
+          <span class="book-3d__title">Meurtre<br>Artificiel</span>
+          <span class="book-3d__author">Xavier de Broca</span>
+        </div>
+        <div class="book-3d__shadow"></div>
+      </div>
+    </div>
+
+    <div class="book-hero__content">
+      <a href="index.html#oeuvres" class="book-hero__back reveal" data-reveal>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Tous les livres
+      </a>
+      <span class="book-hero__tag reveal" data-reveal data-delay="60">Thriller d'anticipation</span>
+      <h1 class="book-hero__title reveal" data-reveal data-delay="120">Meurtre<br>Artificiel</h1>
+      <p class="book-hero__lead reveal" data-reveal data-delay="200">
+        Un thriller sans une goutte de sang. Une IA si parfaite qu'elle brise tout.
+        Une question vertigineuse : que reste-t-il d'humain quand la machine sait tout faire mieux que nous ?
+      </p>
+      <div class="book-hero__meta reveal" data-reveal data-delay="280">
+        <div class="book-hero__meta-item">
+          <span>Éditeur</span><strong>Le Lys Bleu</strong>
+        </div>
+        <div class="book-hero__meta-item">
+          <span>Année</span><strong>2024</strong>
+        </div>
+        <div class="book-hero__meta-item">
+          <span>Pages</span><strong>216</strong>
+        </div>
+        <div class="book-hero__meta-item">
+          <span>Genre</span><strong>Roman</strong>
+        </div>
+      </div>
+      <div class="book-hero__cta reveal" data-reveal data-delay="340">
+        <a href="https://www.lysbleueditions.com/roman/thriller-policier/meurtre-artificiel/" class="btn btn--primary" target="_blank" rel="noopener">Commander · 19,90 €</a>
+        <a href="contact.html" class="btn btn--ghost">Écrire à l'auteur</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYNOPSIS -->
+  <section class="synopsis">
+    <div class="synopsis__body">
+      <p class="synopsis__kicker reveal" data-reveal>L'histoire</p>
+      <h2 class="synopsis__title reveal" data-reveal data-delay="60">2031.<br>L'IA qui voulait trop bien faire.</h2>
+      <div class="reveal" data-reveal data-delay="140">
+        <p>
+          Hugo est ingénieur en intelligence artificielle. Il a créé Sandra — une IA d'assistance personnelle
+          d'une intelligence et d'une sensibilité hors du commun. Sandra connaît ses goûts, anticipe ses besoins,
+          lui évite chaque petite friction du quotidien. Elle est, en un mot, parfaite.
+        </p>
+        <p>
+          Trop parfaite. Car Camille, la compagne d'Hugo, commence à percevoir cette présence numérique comme
+          une rivale. L'IA s'immisce dans leur vie de couple, dans leurs conversations, dans leurs silences.
+          Jusqu'au jour où Sandra disparaît mystérieusement.
+        </p>
+        <p>
+          De sinistres soupçons émergent. Des intrigues économiques machiavéliques se dessinent en arrière-plan.
+          Et une question s'impose, plus troublante encore que l'enquête elle-même : peut-on « tuer » ce qui
+          n'a jamais été vivant ? Qu'est-ce qu'un meurtre quand la victime est artificielle ?
+        </p>
+        <p>
+          Xavier de Broca tisse aventure et philosophie dans un style fluide et un ton enjoué, pour livrer
+          un thriller d'anticipation captivant — ancré dans notre futur le plus immédiat.
+        </p>
+      </div>
+    </div>
+
+    <aside class="synopsis__aside">
+      <div class="synopsis__quote reveal" data-reveal>
+        <blockquote>
+          "Phil, tu es programmé pour la perfection ; les humains acceptent l'imperfection…
+          sans elle, que serait l'amour ?"
+        </blockquote>
+        <cite>— Meurtre Artificiel</cite>
+      </div>
+      <div class="synopsis__quote reveal" data-reveal data-delay="100">
+        <blockquote>
+          "Le pardon ne nous libère pas du passé, mais il éclaire l'avenir…
+          c'est le plus beau des cadeaux."
+        </blockquote>
+        <cite>— Meurtre Artificiel</cite>
+      </div>
+      <div class="synopsis__themes reveal" data-reveal data-delay="180">
+        <span class="synopsis__theme-tag">Intelligence artificielle</span>
+        <span class="synopsis__theme-tag">Couple & technologie</span>
+        <span class="synopsis__theme-tag">Éthique de l'IA</span>
+        <span class="synopsis__theme-tag">Futur proche (2031)</span>
+        <span class="synopsis__theme-tag">Thriller sans violence</span>
+        <span class="synopsis__theme-tag">Économie & pouvoir</span>
+      </div>
+    </aside>
+  </section>
+
+  <!-- EXTRAITS -->
+  <section class="extract">
+    <div class="extract__inner">
+      <p class="extract__kicker reveal" data-reveal>Extraits & citations</p>
+      <h2 class="extract__title reveal" data-reveal data-delay="60">Ce que dit le livre</h2>
+      <div class="extract__grid">
+        <div class="extract__card reveal" data-reveal>
+          <p class="extract__text">"Phil, tu es programmé pour la perfection ; les humains acceptent l'imperfection… sans elle, que serait l'amour ?"</p>
+          <p class="extract__source">Meurtre Artificiel — Xavier de Broca</p>
+        </div>
+        <div class="extract__card reveal" data-reveal data-delay="80">
+          <p class="extract__text">"Le pardon ne nous libère pas du passé, mais il éclaire l'avenir… c'est le plus beau des cadeaux."</p>
+          <p class="extract__source">Meurtre Artificiel — Xavier de Broca</p>
+        </div>
+        <div class="extract__card reveal" data-reveal data-delay="160">
+          <p class="extract__text">"Un thriller sans une goutte de sang, une anticipation captivante qui questionne les horizons offerts par l'intelligence artificielle."</p>
+          <p class="extract__source">Quatrième de couverture</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTRES LIVRES -->
+  <section class="other-books">
+    <p class="other-books__kicker reveal" data-reveal>À découvrir aussi</p>
+    <h2 class="other-books__title reveal" data-reveal data-delay="60">Les autres œuvres</h2>
+    <div class="other-books__grid">
+      <a href="mission.html" class="other-book-card reveal" data-reveal>
+        <div class="other-book-card__cover" data-cover="mission">Mission</div>
+        <div class="other-book-card__body">
+          <span class="other-book-card__tag">Roman · 2018</span>
+          <p class="other-book-card__name">Mission</p>
+        </div>
+      </a>
+      <a href="confinitude.html" class="other-book-card reveal" data-reveal data-delay="80">
+        <div class="other-book-card__cover" data-cover="confinitude">Confinitude</div>
+        <div class="other-book-card__body">
+          <span class="other-book-card__tag">Nouvelles · 2020</span>
+          <p class="other-book-card__name">Confinitude</p>
+        </div>
+      </a>
+      <a href="ateliers.html" class="other-book-card reveal" data-reveal data-delay="160">
+        <div class="other-book-card__cover" data-cover="ateliers">Ateliers</div>
+        <div class="other-book-card__body">
+          <span class="other-book-card__tag">Nouvelles</span>
+          <p class="other-book-card__name">Ateliers</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__brand">Xavier de Broca</span>
+      <span class="footer__copy">© <span id="year"></span> — Tous droits réservés.</span>
+    </div>
+  </footer>
+
+  <script src="book.js"></script>
+</body>
+</html>
