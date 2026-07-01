@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Textes — Xavier de Broca</title>
+  <meta name="description" content="Textes courts de Xavier de Broca : nouvelles, récits, poésie." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ---- Layout textes ---- */
+    .textes-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: clamp(20px, 5vw, 60px);
+      gap: clamp(2rem, 5vw, 4rem);
+      min-height: 80vh;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ---- Sidebar ---- */
+    .textes-sidebar {
+      position: sticky;
+      top: 90px;
+      align-self: start;
+      border-right: 1px solid var(--line);
+      padding-right: 2rem;
+    }
+    .textes-sidebar__title {
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1.4rem;
+    }
+    .textes-sidebar__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .textes-sidebar__list a {
+      display: block;
+      font-size: 0.92rem;
+      color: var(--ink-dim);
+      padding: 0.45rem 0.7rem;
+      border-radius: 6px;
+      border-left: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+    }
+    .textes-sidebar__list a:hover,
+    .textes-sidebar__list a.active {
+      color: var(--ink);
+      border-left-color: var(--accent);
+      background: rgba(176, 125, 42, 0.07);
+    }
+
+    /* ---- Contenu texte ---- */
+    .texte-content {
+      padding-top: 0.4rem;
+    }
+    .texte-content__kicker {
+      font-size: 0.78rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .texte-content h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 2.5rem;
+      line-height: 1.15;
+    }
+    .texte-body {
+      max-width: 680px;
+    }
+    .texte-body p {
+      font-size: 1.07rem;
+      line-height: 1.85;
+      color: var(--ink-dim);
+      margin-bottom: 1.4rem;
+    }
+    .texte-body p:first-of-type::first-letter {
+      font-family: var(--serif);
+      font-size: 3.4rem;
+      float: left;
+      line-height: 0.8;
+      padding: 0.1rem 0.6rem 0 0;
+      color: var(--accent);
+    }
+    .texte-body em {
+      font-style: italic;
+      color: var(--ink);
+    }
+    .texte-body .separator {
+      text-align: center;
+      color: var(--accent);
+      letter-spacing: 0.5em;
+      margin: 2rem 0;
+      font-size: 0.9rem;
+    }
+    .texte-body .note {
+      font-size: 0.85rem;
+      color: var(--ink-faint);
+      font-style: italic;
+      border-left: 2px solid var(--line);
+      padding-left: 1rem;
+      margin-top: 3rem;
+    }
+
+    /* ---- Page hero ---- */
+    .textes-hero {
+      padding: clamp(100px, 14vw, 160px) clamp(20px, 5vw, 60px) clamp(40px, 6vw, 60px);
+      max-width: var(--maxw);
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .textes-hero__kicker {
+      font-size: 0.78rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .textes-hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 680px) {
+      .textes-layout {
+        grid-template-columns: 1fr;
+      }
+      .textes-sidebar {
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+        padding-right: 0;
+        padding-bottom: 1.5rem;
+      }
+      .textes-sidebar__list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="neural-bg" aria-hidden="true"></canvas>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <a href="index.html" class="nav__brand">
+      <span class="nav__brand-mark">Xavier<span> de Broca</span></span>
+    </a>
+    <nav class="nav__links" aria-label="Navigation principale">
+      <a href="index.html#oeuvres">Œuvres</a>
+      <a href="index.html#auteur">L'auteur</a>
+      <a href="textes.html" class="active">Textes</a>
+      <a href="index.html#univers">Univers</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <button class="nav__toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Hero page -->
+  <div class="textes-hero">
+    <p class="textes-hero__kicker">Textes courts</p>
+    <h1>Nouvelles &amp; Récits</h1>
+  </div>
+
+  <!-- Layout sidebar + contenu -->
+  <div class="textes-layout">
+
+    <!-- Sidebar avec liste des textes -->
+    <aside class="textes-sidebar">
+      <p class="textes-sidebar__title">Les textes</p>
+      <ul class="textes-sidebar__list">
+        <li><a href="#automate" class="active">L'automate</a></li>
+      </ul>
+    </aside>
+
+    <!-- Contenu du texte -->
+    <main class="texte-content" id="automate">
+      <p class="texte-content__kicker">Nouvelle · 2022</p>
+      <h1>L'automate</h1>
+
+      <div class="texte-body">
+        <p>21 février 2022. Soirée pure.</p>
+        <p>Parfois, la vie est un cristal. Devant moi, le soleil mourant déploie à l'horizon des tons orangés qui se fanent peu à peu. L'océan s'étend, presque jusqu'à moi, sombre et lustré, souligné par l'écume de vagues sauvages que domptent des surfeurs tardifs, amants solitaires de la lumière et de la mer.</p>
+        <p>Je lui fais face dans mon fauteuil, un single malt à la main, au centre d'une arène sonore où Bach se joue du soir. Je savoure l'harmonie implacable du mathématicien de l'âme, l'horizon qui se dérobe, le liquide doré qui flamboie dans mon verre. Sur la table à ma droite, le jeu d'échec. Les ombres des pièces s'allongent jusqu'à se fondre dans ce néant où s'enfonce la nuit. Chaque soir, Bach accompagne cette heure mystérieuse que je goûte, seul, dans ma maison de Bidart. Depuis deux ans, j'y jouis de mes heures de retraite, de <em>jubilación</em>, comme disent les Espagnols. J'y vis mes dernières passions : la musique de Jean-Sébastien, le ballet de la lumière et de l'océan, la gastronomie, les échecs — fascinant théâtre miniature.</p>
+        <p>Je ne tolère qu'un seul compagnon : Alan. Artiste-cuisinier de génie, créateur de saveurs, il me devine comme s'il m'avait créé. Avec lui les pintades, les bars, les oies, trouvent leur dimension ultime, le sens de leur vie. Les cèpes, les échalotes, les foies gras poêlés, embaument mon air, aiguisent mes papilles. Pourtant, Alan doit sa présence à d'autres talents : professeur d'échecs, il m'aide à ressusciter le joueur que j'étais à vingt ans. Ma notation Elo progresse chaque jour, je suis maintenant reconnu dans les compétitions numériques.</p>
+        <p>Dans mon salon, Bach inonde l'atmosphère, comme s'il voulait remplacer l'astre qui m'abandonne. Je me recueille, regarde l'Océan, le bleu s'est noirci. Soudain, je sursaute, je ne connais pas cette fin de morceau. Depuis quelques instants, il me semble que le musicien improvise subtilement. Cette mélodie, limpide comme du Bach, n'est pas créée par lui ! Alan me rejoint en silence pour notre cours du soir, notre partie vespérale. Il a son sourire sérieux, éternel, gravé. Mais je suis surpris par sa démarche, étonnamment guillerette. Sur son visage figé, j'ai l'impression de voir un impossible clin d'œil. Est-ce mon imagination ?</p>
+        <p>Je comprends subitement : c'est du <em>DeepBach.</em> Une plaisanterie d'Alan, en douce. La première fois qu'il me fait ça ! Ce serait impossible à discerner si mon oreille n'était aussi amoureuse de chaque œuvre du compositeur. Alan a certainement fait appel à ses amis artificiels de <em>FlowMachines</em>. Je souris, je m'étire. Il le sait, j'ai repéré sa supercherie. Ces IA sont très douées ! Jusqu'où iront-elles ? Je laisse se poursuivre ce faux Bach, plus parfait que du Bach, exaspérant d'équilibre sublime.</p>
+        <p>Sans rien dire, je commence la partie, j'ai les blancs, je vais attaquer. Une colère froide m'inspire, je déteste qu'on me trompe. Je veux lui montrer qui est le maître. Jusqu'à présent, je n'ai jamais gagné contre mon professeur mais les parties sont de plus en plus longues. Comme d'habitude, Alan répond à mes coups comme s'il ne réfléchissait pas. J'enchaîne deux coups originaux. Je suis dans sa tête, je le connais, il pense avoir déjà gagné face à mon improvisation ! Cela fait quinze minutes que nous jouons. Il n'a pas vu le piège que j'ai tissé patiemment.</p>
+        <p><em>DeepBach</em> interprète <em>in dulci jubilo</em> — dans la douce réjouissance — avec une grâce artificielle. C'est unique, d'une irritante beauté, d'une ironie parfaite ! Mon cavalier bondit en E5, je savoure mon coup. Alan hésite, il met du temps à réagir, vingt secondes ! Jamais, il n'a tant tardé à riposter. Maintenant il joue à une vitesse folle, il tente de m'égarer, je tiens bon.</p>
+        <p><em>DeepBach</em> a enchaîné sur <em>Herr Jesu Christ</em>. Je souris. Je lui prends sa seconde tour. Alan doit se résigner, il n'a plus de solutions. Il hésite longuement avant de renverser son roi. Abandon. Pour lui, c'est une première. Je le vois tressaillir comme s'il se réveillait d'un cauchemar, assommé, le dos courbé. Lui a-t-on appris à perdre ?</p>
+        <p>Je triomphe, je saute de joie et lance mon poing, je me ressers de whisky et le déguste, les yeux fermés. Aux anges. DeepBach joue la <em>Passion selon saint Jean,</em> j'aurais bien vu un <em>Alléluia.</em></p>
+        <p>Soudain, un éclair argenté brille dans la glace. À peine ai-je le temps d'apercevoir la lame qui s'approche de ma gorge. Elle y dessine un trait pourpre, net, indolore. Définitif.</p>
+        <p>L'automate essuie son couteau et me souffle : « Alan déteste perdre. Il faut toujours lire la notice quand on achète un objet. »</p>
+        <div class="separator">* * *</div>
+        <p class="note">Texte de Xavier de Broca — Tous droits réservés.</p>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__brand">Xavier de Broca</span>
+      <span class="footer__copy">© <span id="year"></span> — Tous droits réservés.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Highlight sidebar link on scroll
+    const links = document.querySelectorAll('.textes-sidebar__list a');
+    links.forEach(l => {
+      l.addEventListener('click', () => {
+        links.forEach(x => x.classList.remove('active'));
+        l.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
